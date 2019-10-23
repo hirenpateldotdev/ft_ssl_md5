@@ -9,8 +9,8 @@ SOURCES += free.c init.c parse.c error.c
 SOURCES += MD5/handle_md5.c MD5/md5.c
 SOURCES += SHA224/handle_sha224.c SHA224/sha224.c
 SOURCES += SHA256/handle_sha256.c SHA256/sha256.c
-SOURCES += SHA384/handle_sha384.c SHA256/sha384.c
-SOURCES += SHA512/handle_sha512.c SHA256/sha512.c
+SOURCES += SHA384/handle_sha384.c SHA384/sha384.c
+SOURCES += SHA512/handle_sha512.c SHA512/sha512.c
 SOURCES := $(SOURCES:%.c=src/%.c)
 OBJECTS := $(SOURCES:src/%.c=obj/%.o)
 

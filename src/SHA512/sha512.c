@@ -21,7 +21,7 @@ static void				init_words(uint8_t *block, uint32_t *sub_block)
 	ft_memcpy(sub_block, block, sizeof(int) * 16);
 	V_I = 0;
 	while (V_I < 16)
-		reverse_bytes(sub_block + V_I++, sizeof(int));
+		reverse_bytes_512(sub_block + V_I++, sizeof(int));
 	V_I = 16;
 	while (V_I < 64)
 	{
@@ -101,7 +101,7 @@ char					*sha512(uint8_t **blocks, int number_blocks)
 	}
 	i = 0;
 	while (i < 8)
-		reverse_bytes(hash + i++, sizeof(int));
+		reverse_bytes_512(hash + i++, sizeof(int));
 	d = sha512_hash((uint8_t*)hash);
 	free(hash);
 	return (d);

@@ -31,7 +31,7 @@ char			*sha512_hash(uint8_t *hash)
 	return (digest);
 }
 
-void			reverse_bytes(void *bytes, uint32_t n)
+void			reverse_bytes_512(void *bytes, uint32_t n)
 {
 	uint32_t	i;
 	uint8_t		tmp;
@@ -64,7 +64,7 @@ int				init_sha512_block(t_input *input)
 	ft_memcpy(S_B->padded_content, S_I->content, S_I->length);
 	S_B->padded_content[S_I->length] |= (uint8_t)0x80;
 	*((uint64_t *)(S_B->padded_content + P_C_L - 8)) = S_B->content_length * 8;
-	reverse_bytes(S_B->padded_content + (P_C_L - 8), 8);
+	reverse_bytes_512(S_B->padded_content + (P_C_L - 8), 8);
 	S_B->blocks = malloc(sizeof(uint8_t *) * S_B->number_blocks);
 	while (++i < S_B->number_blocks)
 	{

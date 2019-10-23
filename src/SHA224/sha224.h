@@ -62,5 +62,5 @@ static const uint32_t			g_ssl_var[8] = {
 
 char					*sha224(uint8_t **blocks_arr, int arr_len);
 char					*sha224_hash(uint8_t *hash);
-void					reverse_bytes(void *bytes, uint32_t n);
+void					reverse_bytes_224(void *bytes, uint32_t n);
 #endif
