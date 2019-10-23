@@ -22,7 +22,7 @@
 static const int	g_valid_commands = 5;
 
 static const char	*g_command[5] = {
-	"md5", "sha224", "sha256", "sha284", "sha512"
+	"md5", "sha224", "sha256", "sha384", "sha512"
 };
 
 void				free_structs(t_ssl *ssl, t_input **input);
