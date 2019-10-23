@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256.h                                           :+:      :+:    :+:   */
+/*   sha224.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hirenpat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SHA256_H
-# define FT_SHA256_H
+#ifndef FT_SHA224_H
+# define FT_SHA224_H
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -60,7 +60,7 @@ static const uint32_t			g_ssl_var[8] = {
 	0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
 };
 
-char					*sha256(uint8_t **blocks_arr, int arr_len);
-char					*sha256_hash(uint8_t *hash);
+char					*sha224(uint8_t **blocks_arr, int arr_len);
+char					*sha224_hash(uint8_t *hash);
 void					reverse_bytes(void *bytes, uint32_t n);
 #endif

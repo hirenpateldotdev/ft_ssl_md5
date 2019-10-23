@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256.c                                           :+:      :+:    :+:   */
+/*   sha224.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hirenpat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sha256.h"
+#include "sha224.h"
 
 static void				init_words(uint8_t *block, uint32_t *sub_block)
 {
@@ -35,7 +35,7 @@ static void				init_words(uint8_t *block, uint32_t *sub_block)
 	free(var);
 }
 
-void					sha256_get_hash(uint32_t *hash, uint32_t *sub_block,
+void					sha224_get_hash(uint32_t *hash, uint32_t *sub_block,
 										uint32_t i)
 {
 	uint32_t			*var;
@@ -60,7 +60,7 @@ void					sha256_get_hash(uint32_t *hash, uint32_t *sub_block,
 	free(var);
 }
 
-uint32_t				*sha256_get_chuck_hash(uint8_t *block, uint32_t *hash)
+uint32_t				*sha224_get_chuck_hash(uint8_t *block, uint32_t *hash)
 {
 	static uint32_t		block_hash[8];
 	uint32_t			sub_block[64];
@@ -72,14 +72,14 @@ uint32_t				*sha256_get_chuck_hash(uint8_t *block, uint32_t *hash)
 	V_I = 0;
 	while (V_I < 64)
 	{
-		sha256_get_hash(block_hash, sub_block, V_I);
+		sha224_get_hash(block_hash, sub_block, V_I);
 		V_I++;
 	}
 	free(var);
 	return (block_hash);
 }
 
-char					*sha256(uint8_t **blocks, int number_blocks)
+char					*sha224(uint8_t **blocks, int number_blocks)
 {
 	uint32_t			*block_hash;
 	uint32_t			*hash;
@@ -94,7 +94,7 @@ char					*sha256(uint8_t **blocks, int number_blocks)
 		hash[x] += g_ssl_var[x];
 	while (++i < number_blocks)
 	{
-		block_hash = sha256_get_chuck_hash(blocks[i], hash);
+		block_hash = sha224_get_chuck_hash(blocks[i], hash);
 		x = -1;
 		while (++x < 8)
 			hash[x] += block_hash[x];
@@ -102,7 +102,7 @@ char					*sha256(uint8_t **blocks, int number_blocks)
 	i = 0;
 	while (i < 8)
 		reverse_bytes(hash + i++, sizeof(int));
-	d = sha256_hash((uint8_t*)hash);
+	d = sha224_hash((uint8_t*)hash);
 	free(hash);
 	return (d);
 }
