@@ -79,27 +79,27 @@ int				init_sha224_block(t_input *input)
 int				sha224_format_digest(t_ssl *ssl, t_input *input)
 {
 	if (ssl->q == 1 || ssl->ac == 2)
-		ft_printf("%s\n", input->digest);
+		ft_printf("%.56s\n", input->digest);
 	else if (ssl->q == 1 && input->type == STDIN)
-		ft_printf("%s%s\n", input->descriptor, input->digest);
+		ft_printf("%s%.56s\n", input->descriptor, input->digest);
 	else if (ssl->r == 1)
 	{
 		if (input->type == FILE)
-			ft_printf("%s %s\n", input->digest, input->descriptor);
+			ft_printf("%.56s %s\n", input->digest, input->descriptor);
 		if (input->type == STRING)
-			ft_printf("%s \"%s\"\n", input->digest, input->descriptor);
+			ft_printf("%.56s \"%s\"\n", input->digest, input->descriptor);
 		if (input->type == STDIN)
-			ft_printf("%s%s\n", input->descriptor, input->digest);
+			ft_printf("%s%.56s\n", input->descriptor, input->digest);
 	}
 	else if (!ssl->r && !ssl->q)
 	{
 		if (input->type == FILE)
-			ft_printf("SHA224 (%s) = %s\n", input->descriptor, input->digest);
+			ft_printf("SHA224 (%s) = %.56s\n", input->descriptor, input->digest);
 		if (input->type == STRING)
-			ft_printf("SHA224 (\"%s\") = %s\n",
+			ft_printf("SHA224 (\"%s\") = %.56s\n",
 						input->descriptor, input->digest);
 		if (input->type == STDIN)
-			ft_printf("%s%s\n", input->descriptor, input->digest);
+			ft_printf("%s%.56s\n", input->descriptor, input->digest);
 	}
 	return (1);
 }
