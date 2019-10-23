@@ -1,4 +1,3 @@
-
 make fclean
 make clean
 rm -rf */*.DS_Store
