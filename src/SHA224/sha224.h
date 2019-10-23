@@ -56,7 +56,7 @@ static const uint32_t			g_ssl_k[64] = {
 };
 
 static const uint32_t			g_ssl_var[8] = {
-	0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939, 
+	0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939,
 	0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4
 };
 

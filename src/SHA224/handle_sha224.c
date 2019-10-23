@@ -94,7 +94,8 @@ int				sha224_format_digest(t_ssl *ssl, t_input *input)
 	else if (!ssl->r && !ssl->q)
 	{
 		if (input->type == FILE)
-			ft_printf("SHA224 (%s) = %.56s\n", input->descriptor, input->digest);
+			ft_printf("SHA224 (%s) = %.56s\n", input->descriptor,\
+			input->digest);
 		if (input->type == STRING)
 			ft_printf("SHA224 (\"%s\") = %.56s\n",
 						input->descriptor, input->digest);
