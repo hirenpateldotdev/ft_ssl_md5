@@ -12,18 +12,18 @@
 
 #include "sha512.h"
 
-static void				init_words(uint8_t *block, uint32_t *sub_block)
+static void				init_words(uint8_t *block, uint64_t *sub_block)
 {
-	uint32_t			*var;
+	uint64_t			*var;
 
-	var = malloc(sizeof(uint32_t) * 7);
-	ft_bzero(var, sizeof(uint32_t) * 7);
+	var = malloc(sizeof(uint64_t) * 7);
+	ft_bzero(var, sizeof(uint64_t) * 7);
 	ft_memcpy(sub_block, block, sizeof(int) * 16);
 	V_I = 0;
 	while (V_I < 16)
 		reverse_bytes_512(sub_block + V_I++, sizeof(int));
 	V_I = 16;
-	while (V_I < 64)
+	while (V_I < 80)
 	{
 		V_S1 = RIGHTROTATE(sub_block[V_I - 15], 7) ^
 		RIGHTROTATE(sub_block[V_I - 15], 18) ^ (sub_block[V_I - 15] >> 3);
@@ -35,13 +35,13 @@ static void				init_words(uint8_t *block, uint32_t *sub_block)
 	free(var);
 }
 
-void					sha512_get_hash(uint32_t *hash, uint32_t *sub_block,
-										uint32_t i)
+void					sha512_get_hash(uint64_t *hash, uint64_t *sub_block,
+										uint64_t i)
 {
-	uint32_t			*var;
+	uint64_t			*var;
 
-	var = malloc(sizeof(uint32_t) * 7);
-	ft_bzero(var, sizeof(uint32_t) * 7);
+	var = malloc(sizeof(uint64_t) * 7);
+	ft_bzero(var, sizeof(uint64_t) * 7);
 	V_I = i;
 	V_S2 = RIGHTROTATE(H_E, 6) ^ RIGHTROTATE(H_E, 11) ^ RIGHTROTATE(H_E, 25);
 	V_C = (H_E & H_F) ^ ((~H_E) & H_G);
@@ -60,17 +60,17 @@ void					sha512_get_hash(uint32_t *hash, uint32_t *sub_block,
 	free(var);
 }
 
-uint32_t				*sha512_get_chuck_hash(uint8_t *block, uint32_t *hash)
+uint64_t				*sha512_get_chuck_hash(uint8_t *block, uint64_t *hash)
 {
-	static uint32_t		block_hash[8];
-	uint32_t			sub_block[64];
-	uint32_t			*var;
+	static uint64_t		block_hash[8];
+	uint64_t			sub_block[80];
+	uint64_t			*var;
 
 	init_words(block, sub_block);
-	ft_memcpy(block_hash, hash, sizeof(uint32_t) * 8);
+	ft_memcpy(block_hash, hash, sizeof(uint64_t) * 8);
 	var = malloc(sizeof(uint64_t) * 7);
 	V_I = 0;
-	while (V_I < 64)
+	while (V_I < 80)
 	{
 		sha512_get_hash(block_hash, sub_block, V_I);
 		V_I++;
@@ -81,14 +81,14 @@ uint32_t				*sha512_get_chuck_hash(uint8_t *block, uint32_t *hash)
 
 char					*sha512(uint8_t **blocks, int number_blocks)
 {
-	uint32_t			*block_hash;
-	uint32_t			*hash;
+	uint64_t			*block_hash;
+	uint64_t			*hash;
 	int					i;
 	char				*d;
 	int					x;
 
 	i = -1;
-	hash = malloc(sizeof(uint32_t) * 8);
+	hash = malloc(sizeof(uint64_t) * 8);
 	x = -1;
 	while (++x < 8)
 		hash[x] += g_ssl_var[x];
