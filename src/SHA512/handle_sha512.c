@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256.c                                           :+:      :+:    :+:   */
+/*   sha512.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hirenpat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sha256.h"\
+#include "sha512.h"\
 
-char			*sha256_hash(uint8_t *hash)
+char			*sha512_hash(uint8_t *hash)
 {
 	int			i;
 	char		*digest;
@@ -48,7 +48,7 @@ void			reverse_bytes(void *bytes, uint32_t n)
 	}
 }
 
-int				init_sha256_block(t_input *input)
+int				init_sha512_block(t_input *input)
 {
 	int			i;
 
@@ -76,7 +76,7 @@ int				init_sha256_block(t_input *input)
 	return (1);
 }
 
-int				sha256_format_digest(t_ssl *ssl, t_input *input)
+int				sha512_format_digest(t_ssl *ssl, t_input *input)
 {
 	if (ssl->q == 1 || ssl->ac == 2)
 		ft_printf("%s\n", input->digest);
@@ -94,9 +94,9 @@ int				sha256_format_digest(t_ssl *ssl, t_input *input)
 	else if (!ssl->r && !ssl->q)
 	{
 		if (input->type == FILE)
-			ft_printf("SHA256 (%s) = %s\n", input->descriptor, input->digest);
+			ft_printf("SHA512 (%s) = %s\n", input->descriptor, input->digest);
 		if (input->type == STRING)
-			ft_printf("SHA256 (\"%s\") = %s\n",
+			ft_printf("SHA512 (\"%s\") = %s\n",
 						input->descriptor, input->digest);
 		if (input->type == STDIN)
 			ft_printf("%s%s\n", input->descriptor, input->digest);
@@ -104,19 +104,19 @@ int				sha256_format_digest(t_ssl *ssl, t_input *input)
 	return (1);
 }
 
-int				sha256_handler(t_ssl *ssl, t_input **input)
+int				sha512_handler(t_ssl *ssl, t_input **input)
 {
 	int			i;
 
 	i = -1;
 	while (++i < ssl->current_input)
-		init_sha256_block(input[i]);
+		init_sha512_block(input[i]);
 	i = -1;
 	while (++i < ssl->current_input)
-		input[i]->digest = sha256(input[i]->b_p->blocks,
+		input[i]->digest = sha512(input[i]->b_p->blocks,
 									input[i]->b_p->number_blocks);
 	i = -1;
 	while (++i < ssl->current_input)
-		sha256_format_digest(ssl, input[i]);
+		sha512_format_digest(ssl, input[i]);
 	return (1);
 }
