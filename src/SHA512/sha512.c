@@ -25,11 +25,12 @@ static void				init_words(uint8_t *block, uint64_t *sub_block)
 	V_I = 16;
 	while (V_I < 80)
 	{
-		V_S1 = RIGHTROTATE(sub_block[V_I - 15], 7) ^
-		RIGHTROTATE(sub_block[V_I - 15], 18) ^ (sub_block[V_I - 15] >> 3);
-		V_S2 = RIGHTROTATE(sub_block[V_I - 2], 17) ^
-		RIGHTROTATE(sub_block[V_I - 2], 19) ^ (sub_block[V_I - 2] >> 10);
-		sub_block[V_I] = sub_block[V_I - 16] + V_S1 + sub_block[V_I - 7] + V_S2;
+		V_S1 = RR_64(sub_block[V_I - 15], 1) ^ RR_64(sub_block[V_I - 15], 8) \
+		^ (sub_block[V_I - 15] >> 7);
+		V_S2 = RR_64(sub_block[V_I - 2], 19) ^ RR_64(sub_block[V_I - 2], 61) \
+		^ (sub_block[V_I - 2] >> 6);
+		sub_block[V_I] = sub_block[V_I - 16] + V_S1 + sub_block[V_I - 7] + \
+		V_S2;
 		V_I++;
 	}
 	free(var);
@@ -43,13 +44,10 @@ void					sha512_get_hash(uint64_t *hash, uint64_t *sub_block,
 	var = malloc(sizeof(uint64_t) * 7);
 	ft_bzero(var, sizeof(uint64_t) * 7);
 	V_I = i;
-	V_S2 = RIGHTROTATE(H_A, 28) ^ RIGHTROTATE(H_A, 34) ^ RIGHTROTATE(H_A, 39);
-	V_C = (H_E & H_F) ^ ((~H_E) & H_G);
-	V_T1 = H_H + V_S2 + V_C + g_ssl_k[V_I] + sub_block[V_I];
-		// V_T1 = Z(H_A, H_B, H_C, V_S1);
-	V_S1 = RIGHTROTATE(H_A, 14) ^ RIGHTROTATE(H_A, 18) ^ RIGHTROTATE(H_A, 41);
-	V_M = (H_A & H_B) ^ (H_A & H_C) ^ (H_B & H_C);
-	V_T2 = V_S1 + V_M;
+	V_S1 = FX(RR_64(H_A, 28), RR_64(H_A, 34), RR_64(H_A, 39));
+	V_T1 = FZ(H_A, H_B, H_C, V_S1);
+	V_S2 = FX(RR_64(H_E, 14), RR_64(H_E, 18), RR_64(H_E, 41));
+	V_T2 = FY(H_E, H_F, H_G, H_H, V_T2, g_ssl_k[i], sub_block[i]);
 	H_H = H_G;
 	H_G = H_F;
 	H_F = H_E;

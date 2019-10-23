@@ -40,6 +40,11 @@
 # define P_C_L (S_B->number_blocks * BLOCK_LENGTH)
 # define LEFTROTATE(X, N) ((X << N) | (X >> (64 - N)))
 # define RIGHTROTATE(X, N) ((X >> N) | (X << (64 - N)))
+# define FX(x, y, z) ((x) ^ (y) ^ (z))
+# define FY(x, y, z, a, b, c, d) (((x & y) ^ (~x & z)) + a + b + c + d)
+# define FZ(x, y, z, a) (((x & y) ^ (x & z) ^ (y & z)) + a)
+# define RR_32(x, n)  (((x) >> (n)) | ((x) << (32 - (n))))
+# define RR_64(x, n)  (((x) >> (n)) | ((x) << (64 - (n))))
 
 static const uint64_t			g_ssl_k[80] = {
 	0x428a2f98d728ae22,
