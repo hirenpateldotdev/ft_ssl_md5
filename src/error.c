@@ -37,7 +37,7 @@ int			invalid_command(char *invalid_command)
 	ft_printf("Standard commands:\n\n");
 	ft_printf("Message Digest commands:\n");
 	while (++i < g_valid_commands)
-		ft_printf("%s\n", g_command[i]);
+		ft_printf("\t%s\n", g_command[i]);
 	ft_printf("\nCipher commands:\n");
 	exit(1);
 	return (-1);

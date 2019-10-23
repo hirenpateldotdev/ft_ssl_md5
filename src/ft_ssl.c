@@ -18,7 +18,10 @@ int				dispatch(t_ssl *ssl, t_input **input)
 	int			(*handle[5])(t_ssl *, t_input **);
 
 	handle[0] = md5_handler;
-	handle[1] = sha256_handler;
+	handle[1] = sha224_handler;
+	handle[2] = sha256_handler;
+	handle[3] = sha384_handler;
+	handle[4] = sha512_handler;
 	ret = handle[ssl->command](ssl, input);
 	return (ret);
 }
