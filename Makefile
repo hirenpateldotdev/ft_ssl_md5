@@ -38,7 +38,7 @@ clean:
 fclean: clean
 	@make fclean -C $(LIBFT)
 	@/bin/rm -f $(NAME)
-	@rm -rf src/SHA256/sha256.h.gch src/MD5/md5.h.gch .vscode
+	@rm -rf */*.h.gch .vscode
 	@/bin/rm -rf $(NAME).dSYM
 
 re: fclean all
