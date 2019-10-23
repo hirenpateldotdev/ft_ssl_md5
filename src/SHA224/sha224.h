@@ -56,8 +56,8 @@ static const uint32_t			g_ssl_k[64] = {
 };
 
 static const uint32_t			g_ssl_var[8] = {
-	0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
-	0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
+	0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939, 
+	0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4
 };
 
 char					*sha224(uint8_t **blocks_arr, int arr_len);
